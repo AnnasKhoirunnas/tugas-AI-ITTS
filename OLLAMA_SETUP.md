@@ -1,47 +1,46 @@
-# 🤖 Setup Ollama + PDF Chat
+# 📚 Setup Ollama + Chat PDF
 
-## Alur Cara Kerja
+## 🔄 Alur Cara Kerja
 
 ```
-PDF Files → PyMuPDFReader → LlamaIndex → Vector Index → Stored
+File PDF → PyMuPDFReader → LlamaIndex → Vector Index → Disimpan
                                                             ↓
-User Question → Vector Search (Retrieve) → Ollama LLM (Generate) → Natural Answer
+Pertanyaan User → Vector Search (Retrieve) → Ollama LLM (Generate) → Jawaban Natural
 ```
 
-## Step-by-Step Setup
+## 📋 Setup Step-by-Step
 
 ### 1️⃣ Install Ollama
 
-**Option A: Mac dengan Homebrew**
+**Opsi A: Mac dengan Homebrew (Recommended)**
 ```bash
 brew install ollama
 ```
 
-**Option B: Download Manual**
-Visit https://ollama.ai dan download untuk Mac/Linux/Windows
+**Opsi B: Download Manual**
+Kunjungi https://ollama.ai dan download untuk Mac/Linux/Windows
 
-### 3️⃣ Pull Model (Di Terminal Baru)
+### 2️⃣ Download Model AI (Di Terminal Baru)
 
 ```bash
+# ⭐ Recommended: llama3.2:1b untuk MacBook Pro M2 (paling cepat)
+ollama pull llama3.2:1b
 
-# Recommended:  llama3.2:1b untuk macbook pro M2
-ollama pull  llama3.2:1b
-
-# Atau alternative:
-ollama pull mistral        #  Mistral (cepat dan berkualitas)
-ollama pull neural-chat    # Lebih kecil, lebih cepat
-ollama pull llama2         # Lebih besar, lebih accurate
+# Atau pilih alternatif lain:
+ollama pull mistral        # Mistral (cepat dan berkualitas tinggi)
+ollama pull neural-chat    # Lebih kecil dan cepat
+ollama pull llama2         # Lebih besar, lebih akurat
 ```
 
-Tunggu sampai selesai (bisa 5-15 menit tergantung koneksi).
+⏳ Tunggu sampai selesai (bisa 5-15 menit tergantung kecepatan internet)
 
-### 2️⃣ Jalankan Ollama Server
+### 3️⃣ Jalankan Ollama Server
 
 ```bash
 ollama serve
 ```
 
-Output akan seperti:
+Output akan terlihat seperti:
 ```
 pulling manifest
 pulling 1d7ad209...
@@ -49,27 +48,27 @@ pulling 1d7ad209...
 success
 ```
 
-**JANGAN CLOSE TERMINAL INI!** Biarkan Ollama terus berjalan.
+🔴 **PENTING: JANGAN TUTUP TERMINAL INI!** Biarkan Ollama terus berjalan di background
 
-
-### 4️⃣ Verify Setup
+### 4️⃣ Verifikasi Setup Ollama
 
 ```bash
-# Test Ollama berhasil
+# Test apakah Ollama berhasil terhubung
 curl http://localhost:11434/api/tags
 
 # Output akan menunjukkan model yang sudah ter-install
 ```
 
-### 5️⃣ Build Index dari PDF (Jika belum)
+### 5️⃣ Build Index dari PDF (Jika Belum Ada)
 
+Di terminal baru (bukan tempat ollama serve):
 ```bash
 python build_index.py
 ```
 
-Output:
+Output yang diharapkan:
 ```
-✅ SUCCESS! Index saved to ./storage/
+✅ BERHASIL! Index disimpan ke ./storage/
 ```
 
 ### 6️⃣ Jalankan Chat App
@@ -78,20 +77,20 @@ Output:
 streamlit run app.py
 ```
 
-Browser otomatis terbuka
+Browser akan otomatis terbuka di http://localhost:8501
 
 ---
 
-## 🚀 Cara Pakai
+## 💬 Cara Menggunakan Chat
 
-1. **Ketik pertanyaan** di chat input
-2. **Ollama akan:**
-   - Retrieve dokumen relevan dari index
-   - Membaca isi dokumen
-   - Generate jawaban natural
-3. **Dapatkan jawaban** dalam format conversational
+1. **Ketik pertanyaan** di kolom input chat
+2. **Ollama akan melakukan:**
+   - 🔍 Mencari dokumen relevan dari vector index
+   - 📖 Membaca isi dokumen yang ditemukan
+   - 🧠 Generate jawaban yang natural dan conversational
+3. **Dapatkan jawaban** dengan format seperti percakapan biasa
 
-### Contoh:
+### 📌 Contoh Penggunaan:
 
 **User:** "Bagaimana prosedur wisuda di ITTS?"
 
@@ -99,80 +98,95 @@ Browser otomatis terbuka
 ```
 Berdasarkan dokumen akademik ITTS, prosedur wisuda melibatkan beberapa tahap:
 
-1. Pertama, mahasiswa harus memastikan semua tunggakan akademik dan keuangan 
-sudah lunas.
+1. Pertama, mahasiswa harus memastikan semua tunggakan akademik dan 
+   keuangan sudah lunas.
 
-2. Kemudian, mendaftar ke bagian akademik dengan melengkapi semua dokumen 
-yang diperlukan.
+2. Kemudian, mendaftar ke bagian akademik dengan melengkapi semua 
+   dokumen yang diperlukan.
 
 3. Setelah itu, mengikuti acara wisuda sesuai jadwal yang sudah ditentukan.
 
 4. Terakhir, pengambilan ijazah dan transkrip nilai di bagian akademik.
 
-Sumber: Buku_Pedoman_Akademik_2025_2026.pdf
+📚 Sumber: Buku_Pedoman_Akademik_2025_2026.pdf
 ```
 
 ---
 
-## 🔧 Troubleshooting
+## ⚠️ Troubleshooting (Pemecahan Masalah)
 
-### ❌ "Connection refused"
+### ❌ Error: "Connection refused"
 ```
-Pastikan Ollama server running:
-ollama serve
+SOLUSI: Pastikan Ollama server sudah running:
 
-(Di terminal yang berbeda)
-```
+Terminal 1:
+$ ollama serve
 
-### ❌ "Model not found"
-```
-Pull model lagi:
-ollama pull mistral
+Terminal 2 (baru):
+$ streamlit run app.py
 ```
 
-### ❌ Jawaban lambat
+### ❌ Error: "Model not found"
 ```
-Model Mistral mungkin sudah cukup cepat.
-Jika masih lambat, coba yang lebih kecil:
-ollama pull neural-chat
+SOLUSI: Download model terlebih dahulu:
+$ ollama pull llama3.2:1b
 ```
 
-Lalu update di app.py:
-```python
+### ❌ Jawaban terlalu lambat (timeout)
+```
+SOLUSI: Gunakan model yang lebih ringan:
+$ ollama pull neural-chat
+
+Kemudian update OLLAMA_MODEL di app.py:
 OLLAMA_MODEL = "neural-chat"
 ```
 
 ---
 
-## 📊 Model Comparison
+## 📊 Perbandingan Model
 
-| Model | Size | Speed | Quality | RAM |
-|-------|------|-------|---------|-----|
-| neural-chat | 4 GB | Fast ⚡ | Good | 8 GB |
-| mistral | 5 GB | Fast | Great | 12 GB |
-| llama2 | 7 GB | Medium | Excellent | 16 GB |
+| Model | Ukuran | Kecepatan | Kualitas | RAM Min |
+|-------|--------|-----------|----------|----------|
+| neural-chat | 4 GB | ⚡ Sangat Cepat | Baik | 8 GB |
+| llama3.2:1b | 2 GB | ⚡ Paling Cepat | Baik | 6 GB |
+| mistral | 5 GB | ⚡ Cepat | Sangat Baik | 12 GB |
+| llama2 | 7 GB | 🔸 Sedang | Excellent | 16 GB |
 
----
-
-## 💡 Tips
-
-**Best Practice:**
-- Keep Ollama running in background
-- Use specific questions for better answers
-- Chat history tersimpan per session
-
-**Performance:**
-- First response lebih lambat (model loading)
-- Subsequent responses lebih cepat
-- Jawaban bisa 5-30 detik tergantung model
+**Rekomendasi:** Untuk MacBook M2, gunakan `llama3.2:1b` atau `neural-chat`
 
 ---
 
-## 🎉 Setup Complete!
+## 💡 Tips & Best Practice
 
-Semuanya sudah siap:
-- ✅ PDF indexed
-- ✅ App configured  
-- ✅ Ollama integrated
+### ✅ Praktik Terbaik:
+- 🎯 Biarkan Ollama berjalan di background (jangan tutup terminal)
+- 💬 Gunakan pertanyaan yang spesifik dan detail untuk hasil lebih baik
+- 📝 Chat history tersimpan per session (tidak persistent)
+- 🔄 Jangan refresh halaman jika ingin mempertahankan riwayat chat
 
-**Mulai chat:** `streamlit run app.py`
+### ⏱️ Performa:
+- 🔴 Response pertama lebih lambat (model loading ke memory)
+- 🟢 Response berikutnya lebih cepat
+- ⏳ Lama jawaban: 5-30 detik tergantung model dan panjang dokumen
+- 💾 MacBook M2 bisa mencapai timeout jika konteks terlalu panjang
+
+### 🚀 Optimisasi MacBook M2:
+- Gunakan `similarity_top_k=2` (hanya 2 dokumen)
+- Set `response_mode="compact"` (jawaban lebih ringkas)
+- Jangan buka aplikasi berat lain (browser banyak tab, Xcode, dll)
+
+---
+
+## ✨ Setup Selesai!
+
+Semuanya sudah siap digunakan:
+- ✅ PDF sudah diindex
+- ✅ App sudah dikonfigurasi
+- ✅ Ollama sudah terintegrasi
+
+### 🚀 Mulai Menggunakan:
+```bash
+streamlit run app.py
+```
+
+Buka http://localhost:8501 di browser dan mulai bertanya! 🎉
