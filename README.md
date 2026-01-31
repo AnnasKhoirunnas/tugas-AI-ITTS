@@ -1,7 +1,7 @@
 # Mata Kuliah	:	Artificial Intelligence
 
 Kode Mata Kuliah	:	SI148.   
-Semester	:	3.   
+Semester	:	7.   
 SKS	:	3.   
 Dosen Pengampu	:	Dhika Rizki Anbiya, S.Kom, M.T.    
 Tanggal Ujian	:	28 Januari 2026.    
