@@ -15,6 +15,7 @@ Waktu Ujian	:	19.00 – 20.00 WIB.
 - Febriandio Prasetyo 1002220033
 - Muhammad Khoiri 1003220030
 
+
 ## Penjelasan Aplikasi
 
 Project ini dibuat menggunakan Macbook Pro M2, memanfaatkan prosesor Apple Silicon.
