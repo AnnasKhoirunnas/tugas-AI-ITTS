@@ -9,7 +9,7 @@ Waktu Ujian	:	19.00 – 20.00 WIB.
 
 ## TIM
 
-- Ibnu Maksum
+- Ibnu Maksum 1002230031
 
 ## Penjelasan Aplikasi
 
@@ -24,7 +24,7 @@ Aplikasi ini menggunakan RAG (Retrieval-Augmented Generation) untuk:
 4. Ollama menghasilkan jawaban natural language
 5. Menampilkan jawaban dengan sumber dokumen di Streamlit UI
 
-## 2️⃣ Langkah Menggunakan
+## Langkah Menggunakan
 
 ### Step 1: Build Index
 ```bash
@@ -37,8 +37,8 @@ python build_index.py
 
 Output:
 ```
-✅ SUCCESS! Index saved.
-💾 Stored in: ./storage/
+SUCCESS! Index saved.
+Stored in: ./storage/
 ```
 
 ### Step 2: Run App
@@ -54,21 +54,21 @@ Ketik pertanyaan apapun tentang PDF:
 - "Syarat skripsi?"
 - "Bagaimana wisuda?"
 
-## 📊 File Results
+## File Results
 
-- **build_index.py**: ✅ Working
+- **build_index.py**: Working
   - Membaca 5 PDF dari `./data/`
   - Mengekstrak 511,110 karakter
   - Membuat vector index dengan HuggingFace embeddings
   - Simpan ke `./storage/`
 
-- **app.py**: ✅ Working
+- **app.py**: Working
   - Streamlit UI untuk searching
   - Menggunakan VectorIndexRetriever
   - Tampilkan top-5 hasil relevan
   - Tanpa LLM (retrieval-only mode)
 
-- **storage/**: ✅ Vector Store Ready
+- **storage/**: Vector Store Ready
   - `default__vector_store.json`: Vector embeddings
   - `docstore.json`: Document chunks
   - `index_store.json`: Index metadata
